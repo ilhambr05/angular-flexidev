@@ -5,11 +5,14 @@ import { PeopleService } from '../../../services/people/people.service';
 import { CommonModule } from '@angular/common';
 import { LinkedItemComponent } from "../../../component/linked-item/linked-item.component";
 import { TagModule } from 'primeng/tag';
+import { DividerModule } from 'primeng/divider';
+import { TreeModule } from 'primeng/tree';
+import { TreeNode } from 'primeng/api';
 
 @Component({
   selector: 'app-person-detail',
   standalone: true,
-  imports: [CommonModule, LinkedItemComponent, TagModule],
+  imports: [CommonModule, LinkedItemComponent, TagModule, DividerModule, TreeModule],
   templateUrl: './person-detail.component.html',
   styleUrl: './person-detail.component.scss'
 })
@@ -36,6 +39,11 @@ export class PersonDetailComponent {
   isLoading: boolean = false;
   isError: boolean = false;
   errorText: string = "";
+
+  filmNodes!: TreeNode[];
+  speciesNodes!: TreeNode[];
+  vehicleNodes!: TreeNode[];
+  starshipNodes!: TreeNode[];
 
   constructor(private route: ActivatedRoute, private peopleService: PeopleService) { }
 
@@ -67,4 +75,7 @@ export class PersonDetailComponent {
       }
     )
   }
+
+  // initFilmNodes() {}
+  onNodeExpand(event: any) {}
 }

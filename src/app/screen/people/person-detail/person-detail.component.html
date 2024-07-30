@@ -7,13 +7,69 @@
         <p style="color: red;">Error loading people.</p>
         <span style="color: red;">{{ errorText || "No message" }}</span>
     </ng-container>
-    <h2 class="flex gap-2">
+    <!-- NAME -->
+    <h1 class="flex gap-2">
         {{person.name}} 
         <p-tag *ngIf="person.gender === 'male'" icon="pi pi-mars" value="Male" severity="success" class="flex"/>
         <p-tag *ngIf="person.gender === 'female'" icon="pi pi-venus" value="Female" severity="info" class="flex"/>
         <p-tag *ngIf="person.gender !== 'male' && person.gender !== 'female'" icon="pi pi-exclamation-circle" value="Unknown Gender" severity="warning" class="flex"/>
+    </h1>
+    <!-- DETAILS -->
+    <table>
+        <tbody>
+            <tr>
+                <td class="text-muted">Height</td>
+                <td><p-divider layout="vertical" /></td>
+                <td><strong>{{person.height}}</strong></td>
+            </tr>
+            <tr>
+                <td class="text-muted">Mass</td>
+                <td><p-divider layout="vertical" /></td>
+                <td><strong>{{person.mass}}</strong></td>
+            </tr>
+            <tr>
+                <td class="text-muted">Hair Color</td>
+                <td><p-divider layout="vertical" /></td>
+                <td><strong>{{person.hair_color}}</strong></td>
+            </tr>
+            <tr>
+                <td class="text-muted">Skin Color</td>
+                <td><p-divider layout="vertical" /></td>
+                <td><strong>{{person.skin_color}}</strong></td>
+            </tr>
+            <tr>
+                <td class="text-muted">Eye Color</td>
+                <td><p-divider layout="vertical" /></td>
+                <td><strong>{{person.eye_color}}</strong></td>
+            </tr>
+            <tr>
+                <td class="text-muted">Birth Year</td>
+                <td><p-divider layout="vertical" /></td>
+                <td><strong>{{person.birth_year}}</strong></td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- FILMS -->
+    <h2 class="flex gap-2">
+        Films 
+        <p-tag [value]="person.films.length.toString()" severity="info" class="flex"/>
     </h2>
+    <ng-container *ngIf="person.films.length > 0">
+        <div class="flex flex-wrap gap-2">
+            <ng-template ngFor let-link [ngForOf]="person.films" let-i="index">
+                <app-linked-item [link]="link" indexToGetName="title"/>
+            </ng-template>
+        </div>
+    </ng-container>
+    <div class="card flex flex-wrap p-fluid gap-3">
+        <div class="flex-auto md:flex md:justify-content-start md:align-items-center flex-column">
+            <label for="icon" class="font-bold block mb-2">Icon Mode</label>
+            <p-tree 
+                class="w-full md:w-30rem" 
+                [value]="filmNodes" 
+                loadingMode="icon" 
+                (onNodeExpand)="onNodeExpand($event)" />
+        </div>
+    </div>
     <pre>{{ person | json }}</pre>
-    <app-linked-item [link]="'https://swapi.dev/api/vehicles/14/'" indexToGetName="name"/>
-    <app-linked-item [link]="'https://swapi.dev/api/films/1/'" indexToGetName="title"/>
 </ng-template>

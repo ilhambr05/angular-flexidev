@@ -1,2 +1,15 @@
 
-<p>{{link}} - {{indexToGetName}} - {{nameDisplay}}</p>
+<ng-container *ngIf="isLoading; else dataLoaded">
+    <p-skeleton width="10rem" height="3rem" />
+</ng-container>
+<ng-template #dataLoaded>
+    <ng-container *ngIf="isError">
+        <p style="color: red;">Error loading people.</p>
+        <span style="color: red;">{{ errorText || "No message" }}</span>
+    </ng-container>
+    <ng-container *ngIf="!isError">
+        <div class="linked-item-container">
+            {{nameDisplay}}
+        </div>
+    </ng-container>
+</ng-template>

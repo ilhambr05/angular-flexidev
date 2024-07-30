@@ -1,10 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { CommonService } from '../../services/common.service';
+import { CommonModule } from '@angular/common';
+import { CardModule } from 'primeng/card';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
   selector: 'app-linked-item',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, SkeletonModule],
   templateUrl: './linked-item.component.html',
   styleUrl: './linked-item.component.scss'
 })
