@@ -7,6 +7,13 @@
         <p style="color: red;">Error loading people.</p>
         <span style="color: red;">{{ errorText || "No message" }}</span>
     </ng-container>
+    <h2 class="flex gap-2">
+        {{person.name}} 
+        <p-tag *ngIf="person.gender === 'male'" icon="pi pi-mars" value="Male" severity="success" class="flex"/>
+        <p-tag *ngIf="person.gender === 'female'" icon="pi pi-venus" value="Female" severity="info" class="flex"/>
+        <p-tag *ngIf="person.gender !== 'male' && person.gender !== 'female'" icon="pi pi-exclamation-circle" value="Unknown Gender" severity="warning" class="flex"/>
+    </h2>
     <pre>{{ person | json }}</pre>
-    <app-linked-item [link]="person.url" [indexToGetName]="name"/>
+    <app-linked-item [link]="'https://swapi.dev/api/vehicles/14/'" indexToGetName="name"/>
+    <app-linked-item [link]="'https://swapi.dev/api/films/1/'" indexToGetName="title"/>
 </ng-template>

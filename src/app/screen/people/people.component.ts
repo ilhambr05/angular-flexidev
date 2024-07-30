@@ -40,7 +40,7 @@ export class PeopleComponent {
     this.isError = false;
     this.people.results = [];
 
-    let test = this.peopleService.get({page}).subscribe(
+    this.peopleService.get({page}).subscribe(
       {
         next: (res: IPeople) => {
           const resultWithExtractedIDs : IPersonDetail[] = res.results.map((person: any) => {

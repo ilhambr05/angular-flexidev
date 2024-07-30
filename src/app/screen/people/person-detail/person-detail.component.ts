@@ -4,11 +4,12 @@ import { IPersonDetail } from '../../../model/people';
 import { PeopleService } from '../../../services/people/people.service';
 import { CommonModule } from '@angular/common';
 import { LinkedItemComponent } from "../../../component/linked-item/linked-item.component";
+import { TagModule } from 'primeng/tag';
 
 @Component({
   selector: 'app-person-detail',
   standalone: true,
-  imports: [CommonModule, LinkedItemComponent],
+  imports: [CommonModule, LinkedItemComponent, TagModule],
   templateUrl: './person-detail.component.html',
   styleUrl: './person-detail.component.scss'
 })
@@ -50,7 +51,7 @@ export class PersonDetailComponent {
     this.isLoading = true;
     this.isError = false;
 
-    let test = this.peopleService.getById(id).subscribe(
+    this.peopleService.getById(id).subscribe(
       {
         next: (res: IPersonDetail) => {
           this.person = res;
