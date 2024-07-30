@@ -1,1 +1,50 @@
-<p>people works!</p>
+<div style="width: 30%;">
+    <p-card header="Simple Card">
+        <p-table [lazy]="true" [loading]="isLoading" styleClass="p-datatable-sm" [value]="people.results">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th colspan="2">Name</th>
+                    <!-- <th>Action</th> -->
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-person>
+                <tr>
+                    <td>{{ person.name }}</td>
+                    <td>
+                        <div class="flex column-gap-2 justify-content-end">
+                            <p-button icon="pi pi-external-link" text="true" size="small"/>
+                            <p-button label="Detail" icon="pi pi-angle-right" iconPos="right" size="small"/>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <ng-container *ngIf="isLoading;">
+            <div class="flex justify-content-center align-items-center"  style="min-height:400px">
+                <p-progressSpinner ariaLabel="loading"/>
+            </div>
+        </ng-container>
+        <ng-template pTemplate="footer">
+            <div class="flex align-items-center justify-content-end">
+                <span class="mx-1 text-color">Items per page: </span>
+                <p-paginator [first]="0" [rows]="10" [totalRecords]="people.count" (onPageChange)="onPageChange($event)" [showCurrentPageReport]="true"
+                    currentPageReportTemplate="{first} - {last} of {totalRecords}" [showPageLinks]="false" [showFirstLastIcon]="false" ></p-paginator>
+            </div>
+        </ng-template>
+    </p-card>
+</div>
+<!-- <ng-container *ngIf="isLoading; else dataLoaded">
+    <p>Loading...</p>
+</ng-container>
+<ng-template #dataLoaded>
+    <ng-container *ngIf="isError">
+        <p style="color: red;">Error loading people.</p>
+        <span style="color: red;">{{ errorText || "No message" }}</span>
+    </ng-container>
+    <ng-container *ngIf="people.results.length > 0 && !isError">
+        <pre>{{ people | json }}</pre>
+    </ng-container>
+    <ng-container *ngIf="people.results.length == 0 && !isError">
+        <p>No people found.</p>
+    </ng-container>
+</ng-template> -->
