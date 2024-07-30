@@ -3,11 +3,12 @@ import { ActivatedRoute } from '@angular/router';
 import { IPersonDetail } from '../../../model/people';
 import { PeopleService } from '../../../services/people/people.service';
 import { CommonModule } from '@angular/common';
+import { LinkedItemComponent } from "../../../component/linked-item/linked-item.component";
 
 @Component({
   selector: 'app-person-detail',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, LinkedItemComponent],
   templateUrl: './person-detail.component.html',
   styleUrl: './person-detail.component.scss'
 })
@@ -45,7 +46,7 @@ export class PersonDetailComponent {
 
   loadPerson(id: number){
     if(this.person.id === 0){ return }
-    
+
     this.isLoading = true;
     this.isError = false;
 
@@ -55,7 +56,6 @@ export class PersonDetailComponent {
           this.person = res;
         },
         error: (error: any) => {
-          // console.log(error);
           this.isError = true;
           this.errorText = error.message;
           this.isLoading = false;

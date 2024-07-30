@@ -8,4 +8,5 @@
         <span style="color: red;">{{ errorText || "No message" }}</span>
     </ng-container>
     <pre>{{ person | json }}</pre>
+    <app-linked-item [link]="person.url" [indexToGetName]="name"/>
 </ng-template>
