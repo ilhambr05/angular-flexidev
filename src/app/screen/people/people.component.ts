@@ -29,6 +29,8 @@ export class PeopleComponent {
   isError: boolean = false;
   errorText: string = "";
 
+  personDetailID: number = 0;
+
   constructor(private peopleService: PeopleService) { }
 
   ngOnInit() {
@@ -77,5 +79,9 @@ export class PeopleComponent {
   onPageChange(event : any) {
     console.log(event);
     this.loadPeople(event.page + 1);
+  }
+
+  viewDetailPerson(id: number) {
+    this.personDetailID = id;
   }
 }

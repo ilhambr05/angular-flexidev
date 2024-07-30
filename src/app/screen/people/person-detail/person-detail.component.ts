@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IPersonDetail } from '../../../model/people';
 import { PeopleService } from '../../../services/people/people.service';
@@ -16,6 +16,7 @@ import { CardModule } from 'primeng/card';
   styleUrl: './person-detail.component.scss'
 })
 export class PersonDetailComponent {
+  @Input() personID: number = 0;
   person: IPersonDetail = {
     id : 0,
     name : "",
@@ -43,6 +44,13 @@ export class PersonDetailComponent {
 
   ngOnInit() {
     this.person.id = Number(this.route.snapshot.paramMap.get('id'));
+
+    this.loadPerson(this.person.id);
+  }
+
+  ngOnChanges() {
+    this.person.id = this.personID;
+    console.log("id-",this.person.id);
 
     this.loadPerson(this.person.id);
   }
