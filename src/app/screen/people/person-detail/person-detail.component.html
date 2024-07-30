@@ -1,1 +1,11 @@
 <p>person-detail works! {{person.id}}</p>
+<ng-container *ngIf="isLoading; else dataLoaded">
+    <p>Loading...</p>
+</ng-container>
+<ng-template #dataLoaded>
+    <ng-container *ngIf="isError">
+        <p style="color: red;">Error loading people.</p>
+        <span style="color: red;">{{ errorText || "No message" }}</span>
+    </ng-container>
+    <pre>{{ person | json }}</pre>
+</ng-template>

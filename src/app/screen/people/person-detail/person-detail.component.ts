@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IPersonDetail } from '../../../model/people';
+import { PeopleService } from '../../../services/people/people.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-person-detail',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './person-detail.component.html',
   styleUrl: './person-detail.component.scss'
 })
@@ -33,9 +35,35 @@ export class PersonDetailComponent {
   isError: boolean = false;
   errorText: string = "";
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private peopleService: PeopleService) { }
 
   ngOnInit() {
     this.person.id = Number(this.route.snapshot.paramMap.get('id'));
+
+    this.loadPerson(this.person.id);
+  }
+
+  loadPerson(id: number){
+    if(this.person.id === 0){ return }
+    
+    this.isLoading = true;
+    this.isError = false;
+
+    let test = this.peopleService.getById(id).subscribe(
+      {
+        next: (res: IPersonDetail) => {
+          this.person = res;
+        },
+        error: (error: any) => {
+          // console.log(error);
+          this.isError = true;
+          this.errorText = error.message;
+          this.isLoading = false;
+        },
+        complete: () => {
+          this.isLoading = false;
+        }
+      }
+    )
   }
 }
