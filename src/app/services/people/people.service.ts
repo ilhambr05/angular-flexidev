@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IPeople } from '../../model/people';
+import { IPeople, IPersonDetail } from '../../model/people';
 import { IServiceParams } from '../../model/service';
 
 @Injectable({
@@ -20,7 +20,10 @@ export class PeopleService {
 
   get(params: IServiceParams) : Observable<IPeople> {
     return this.http.get<IPeople>(`${this.baseUrl}/people/`, {params: this.createParams(params)});
-    // return this.apiService.Get(`${this.url}endpoint`)
+  }
+
+  getById(id: number) : Observable<IPersonDetail> {
+    return this.http.get<IPersonDetail>(`${this.baseUrl}/people/${id}`);
   }
 
   createParams(params?: IServiceParams) {

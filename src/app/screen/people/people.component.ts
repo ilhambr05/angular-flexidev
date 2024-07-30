@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IPeople } from '../../model/people';
+import { IPeople, IPersonDetail } from '../../model/people';
 import { PeopleService } from '../../services/people/people.service';
 import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
@@ -7,11 +7,14 @@ import { CardModule } from 'primeng/card';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ButtonModule } from 'primeng/button';
 import { PaginatorModule } from 'primeng/paginator';
+import { RouterModule } from '@angular/router';
+import { TooltipModule } from 'primeng/tooltip';
+import { PersonDetailComponent } from './person-detail/person-detail.component';
 
 @Component({
   selector: 'app-people',
   standalone: true,
-  imports: [CommonModule, TableModule, CardModule, ProgressSpinnerModule, ButtonModule, PaginatorModule],
+  imports: [RouterModule, CommonModule, TableModule, CardModule, ProgressSpinnerModule, ButtonModule, PaginatorModule, TooltipModule, PersonDetailComponent],
   templateUrl: './people.component.html',
   styleUrl: './people.component.scss'
 })
@@ -40,6 +43,18 @@ export class PeopleComponent {
     let test = this.peopleService.get({page}).subscribe(
       {
         next: (res: IPeople) => {
+          const resultWithExtractedIDs : IPersonDetail[] = res.results.map((person: any) => {
+            let urlSegments = person.url.split('/');
+            let extractedID = urlSegments.pop() || urlSegments.pop();
+            console.log(person.url, extractedID);
+            return {
+              ...person,
+              id: extractedID
+            }
+          })
+
+          res.results = resultWithExtractedIDs;
+
           this.people = res;
         },
         error: (error: any) => {

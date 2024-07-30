@@ -2,10 +2,11 @@ export interface IPeople {
     count: number
     next: string
     previous: any
-    results: IPeopleDetail[]
+    results: IPersonDetail[]
 }
 
-export interface IPeopleDetail {
+export interface IPersonDetail {
+    id: number,
     name: string
     height: string
     mass: string

@@ -12,7 +12,11 @@
                     <td>{{ person.name }}</td>
                     <td>
                         <div class="flex column-gap-2 justify-content-end">
-                            <p-button icon="pi pi-external-link" text="true" size="small"/>
+                            <p-button [routerLink]="['/people', person.id]" icon="pi pi-external-link" text="true" size="small" 
+                            pTooltip="Open In New Page" 
+                            tooltipPosition="left" 
+                            showDelay="500" 
+                            hideDelay="100"/>
                             <p-button label="Detail" icon="pi pi-angle-right" iconPos="right" size="small"/>
                         </div>
                     </td>
@@ -33,6 +37,7 @@
         </ng-template>
     </p-card>
 </div>
+<app-person-detail/>
 <!-- <ng-container *ngIf="isLoading; else dataLoaded">
     <p>Loading...</p>
 </ng-container>
