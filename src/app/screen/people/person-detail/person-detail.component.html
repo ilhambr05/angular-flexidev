@@ -10,6 +10,10 @@
         </div>
     </ng-container>
     <ng-container #dataLoaded *ngIf="!isLoading && person.id !== 0">
+        <ng-container *ngIf="isOpenFromNewPage && !personID">
+            <p-button [routerLink]="['/people']" label="Back To People" icon="pi pi-angle-left" iconPos="left"
+                class="hidden md:block mt-5 align-self-start" />
+        </ng-container>
         <ng-container *ngIf="isError">
             <p style="color: red;">Error loading people.</p>
             <span style="color: red;">{{ errorText || "No message" }}</span>

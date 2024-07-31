@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { IPersonDetail } from '../../../model/people';
 import { PeopleService } from '../../../services/people/people.service';
 import { CommonModule } from '@angular/common';
@@ -8,16 +8,20 @@ import { TagModule } from 'primeng/tag';
 import { DividerModule } from 'primeng/divider';
 import { CardModule } from 'primeng/card';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-person-detail',
   standalone: true,
-  imports: [CommonModule, LinkedItemComponent, TagModule, DividerModule, CardModule, ProgressSpinnerModule],
+  imports: [CommonModule, RouterModule, ButtonModule, LinkedItemComponent, TagModule, DividerModule, CardModule, ProgressSpinnerModule],
   templateUrl: './person-detail.component.html',
   styleUrl: './person-detail.component.scss'
 })
 export class PersonDetailComponent {
-  @Input() personID: number = 0;
+  @Input() personID!: number;
+
+  isOpenFromNewPage: boolean = false;
+
   person: IPersonDetail = {
     id : 0,
     name : "",
@@ -44,6 +48,7 @@ export class PersonDetailComponent {
   constructor(private route: ActivatedRoute, private peopleService: PeopleService) { }
 
   ngOnInit() {
+    this.isOpenFromNewPage = true;
     this.person.id = Number(this.route.snapshot.paramMap.get('id'));
     if (this.person.id === 0) {return}
 
