@@ -1,5 +1,8 @@
 <div class="card">
     <p-menubar [model]="items">
+        <ng-template pTemplate="start">
+            <img src='star-wars-logo-sm.png' alt='image' class="mr-3">
+        </ng-template>
         <ng-template pTemplate="item" let-item>
             <ng-container *ngIf="item.route; else urlRef">
                 <a [routerLink]="item.route" class="p-menuitem-link" [routerLinkActive]="['active-link']">
