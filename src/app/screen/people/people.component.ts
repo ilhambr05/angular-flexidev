@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { IPeople, IPersonDetail } from '../../model/people';
 import { PeopleService } from '../../services/people/people.service';
 import { CommonModule } from '@angular/common';
@@ -19,6 +19,8 @@ import { PersonDetailComponent } from './person-detail/person-detail.component';
   styleUrl: './people.component.scss'
 })
 export class PeopleComponent {
+  @ViewChild('personDetailSection') personDetailSection!: ElementRef;
+
   people: IPeople = {
     count: 0,
     next: '',
@@ -48,7 +50,6 @@ export class PeopleComponent {
           const resultWithExtractedIDs : IPersonDetail[] = res.results.map((person: any) => {
             let urlSegments = person.url.split('/');
             let extractedID = urlSegments.pop() || urlSegments.pop();
-            console.log(person.url, extractedID);
             return {
               ...person,
               id: extractedID
@@ -60,14 +61,12 @@ export class PeopleComponent {
           this.people = res;
         },
         error: (error: any) => {
-          // console.log(error);
           this.isError = true;
           this.errorText = error.message;
           this.isLoading = false;
         },
         complete: () => {
           this.isLoading = false;
-          console.log("complete")
         }
       }
     )
@@ -77,11 +76,27 @@ export class PeopleComponent {
   }
 
   onPageChange(event : any) {
-    console.log(event);
     this.loadPeople(event.page + 1);
   }
 
   viewDetailPerson(id: number) {
     this.personDetailID = id;
+
+    this.scrollToDetail();
+  }
+
+  scrollToDetail() {
+    let element = this.personDetailSection?.nativeElement;
+
+    if (element) {
+      let headerOffset = 0;
+      let elementPosition = element.getBoundingClientRect().top;
+      let offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+    
+      window.scrollTo({
+           top: offsetPosition,
+           behavior: 'smooth'
+      });
+    }
   }
 }

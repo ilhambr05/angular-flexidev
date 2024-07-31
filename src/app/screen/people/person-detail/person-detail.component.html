@@ -1,4 +1,4 @@
-<div class="flex flex-column justify-content-center align-items-center" style="height: calc(100vh - 150px);">
+<div class="flex flex-column justify-content-center align-items-center h-full">
     <ng-container *ngIf="person.id === 0">
         <div class="flex h-full align-items-center">
             <h1 class="text-center">No Person Selected</h1>
@@ -25,9 +25,9 @@
         <p-divider />
         <!-- DETAILS -->
         <div class="details-container flex gap-5">
-            <p-card class="flex">
+            <p-card class="flex name-container">
                 <h2 class="flex mt-0">Details</h2>
-                <table style="max-width: 300px;">
+                <table>
                     <tbody>
                         <tr>
                             <td class="text-muted">Height</td>

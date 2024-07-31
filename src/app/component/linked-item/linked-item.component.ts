@@ -32,7 +32,6 @@ export class LinkedItemComponent {
     this.common.get(this.link).subscribe(
       {
         next: (res: any) => {
-          console.log(res, res[this.indexToGetName], this.indexToGetName);
           this.nameDisplay = res[this.indexToGetName];
         },
         error: (error: any) => {
