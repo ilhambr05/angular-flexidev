@@ -90,8 +90,6 @@ export class PeopleComponent {
       }
     )
 
-    // test.unsubscribe();
-
   }
 
   onPageChange(event: any) {
@@ -99,8 +97,6 @@ export class PeopleComponent {
   }
 
   onSearchPeople(event: any) {
-    console.log(event);
-    // this.loadPeople({search: event.target.value});
     this.searchSubject.next(event.target.value);
   }
 

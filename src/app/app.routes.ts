@@ -16,6 +16,5 @@ export const routes: Routes = [
         path: "people/:id",
         component: PersonDetailComponent,
     },
-    // { path: '', redirectTo: 'people', pathMatch: 'full' },
     { path: '**', component: PageNotFoundComponent },
 ];

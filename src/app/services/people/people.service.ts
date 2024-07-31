@@ -15,7 +15,6 @@ export class PeopleService {
 
   getAll() : Observable<IPeople> {
     return this.http.get<IPeople>(`${this.baseUrl}/people`);
-    // return this.apiService.Get(`${this.url}endpoint`)
   }
 
   get(params: IServiceParams) : Observable<IPeople> {
