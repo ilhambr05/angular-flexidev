@@ -4,7 +4,7 @@
 </ng-container>
 <ng-template #dataLoaded>
     <ng-container *ngIf="isError">
-        <p style="color: red;">Error loading people.</p>
+        <p style="color: red;">Error loading item.</p>
         <span style="color: red;">{{ errorText || "No message" }}</span>
     </ng-container>
     <ng-container *ngIf="!isError">

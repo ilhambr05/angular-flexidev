@@ -7,11 +7,12 @@ import { LinkedItemComponent } from "../../../component/linked-item/linked-item.
 import { TagModule } from 'primeng/tag';
 import { DividerModule } from 'primeng/divider';
 import { CardModule } from 'primeng/card';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
   selector: 'app-person-detail',
   standalone: true,
-  imports: [CommonModule, LinkedItemComponent, TagModule, DividerModule, CardModule],
+  imports: [CommonModule, LinkedItemComponent, TagModule, DividerModule, CardModule, ProgressSpinnerModule],
   templateUrl: './person-detail.component.html',
   styleUrl: './person-detail.component.scss'
 })
@@ -44,13 +45,14 @@ export class PersonDetailComponent {
 
   ngOnInit() {
     this.person.id = Number(this.route.snapshot.paramMap.get('id'));
+    if (this.person.id === 0) {return}
 
     this.loadPerson(this.person.id);
   }
 
   ngOnChanges() {
     this.person.id = this.personID;
-    console.log("id-",this.person.id);
+    if (this.person.id === 0) {return}
 
     this.loadPerson(this.person.id);
   }
