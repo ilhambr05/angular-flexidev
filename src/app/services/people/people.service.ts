@@ -30,7 +30,9 @@ export class PeopleService {
     let httpParams = new HttpParams();
     if (params) {
       Object.entries(params).forEach(([key, value]) => {
-        httpParams = httpParams.append(key, value);
+        if(value){
+          httpParams = httpParams.append(key, value);
+        }
       });
     }
     return httpParams;

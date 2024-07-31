@@ -10,16 +10,24 @@ import { PaginatorModule } from 'primeng/paginator';
 import { RouterModule } from '@angular/router';
 import { TooltipModule } from 'primeng/tooltip';
 import { PersonDetailComponent } from './person-detail/person-detail.component';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+import { debounceTime, Subject } from 'rxjs';
+import { IServiceParams } from '../../model/service';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-people',
   standalone: true,
-  imports: [RouterModule, CommonModule, TableModule, CardModule, ProgressSpinnerModule, ButtonModule, PaginatorModule, TooltipModule, PersonDetailComponent],
+  imports: [RouterModule, CommonModule, TableModule, CardModule, ProgressSpinnerModule, ButtonModule, 
+    PaginatorModule, TooltipModule, PersonDetailComponent, IconFieldModule, InputIconModule, InputTextModule],
   templateUrl: './people.component.html',
   styleUrl: './people.component.scss'
 })
 export class PeopleComponent {
   @ViewChild('personDetailSection') personDetailSection!: ElementRef;
+  private searchSubject = new Subject<string>();
+  private readonly debounceSearchTimeMs = 250;
 
   people: IPeople = {
     count: 0,
@@ -36,18 +44,29 @@ export class PeopleComponent {
   constructor(private peopleService: PeopleService) { }
 
   ngOnInit() {
+    this.searchSubject.pipe(debounceTime(this.debounceSearchTimeMs)).subscribe((searchValue) => {
+      this.doSearchPeople(searchValue);
+    });
+
     this.loadPeople();
   }
 
-  loadPeople(page = 1){
+  ngOnDestroy() {
+    this.searchSubject.complete();
+  }
+
+  loadPeople(params?: IServiceParams) {
+    const page = params?.page || 1;
+    const search = params?.search || '';
+
     this.isLoading = true;
     this.isError = false;
     this.people.results = [];
 
-    this.peopleService.get({page}).subscribe(
+    this.peopleService.get({ page, search }).subscribe(
       {
         next: (res: IPeople) => {
-          const resultWithExtractedIDs : IPersonDetail[] = res.results.map((person: any) => {
+          const resultWithExtractedIDs: IPersonDetail[] = res.results.map((person: any) => {
             let urlSegments = person.url.split('/');
             let extractedID = urlSegments.pop() || urlSegments.pop();
             return {
@@ -75,8 +94,18 @@ export class PeopleComponent {
 
   }
 
-  onPageChange(event : any) {
-    this.loadPeople(event.page + 1);
+  onPageChange(event: any) {
+    this.loadPeople({page: event.page + 1});
+  }
+
+  onSearchPeople(event: any) {
+    console.log(event);
+    // this.loadPeople({search: event.target.value});
+    this.searchSubject.next(event.target.value);
+  }
+
+  doSearchPeople(searchValue: string) {
+    this.loadPeople({search: searchValue});
   }
 
   viewDetailPerson(id: number) {
@@ -92,10 +121,10 @@ export class PeopleComponent {
       let headerOffset = 0;
       let elementPosition = element.getBoundingClientRect().top;
       let offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-    
+
       window.scrollTo({
-           top: offsetPosition,
-           behavior: 'smooth'
+        top: offsetPosition,
+        behavior: 'smooth'
       });
     }
   }

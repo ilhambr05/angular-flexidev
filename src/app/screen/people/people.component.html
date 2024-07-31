@@ -1,6 +1,15 @@
 <div class="flex gap-5 mt-2 md:mt-5 flex-column md:flex-row">
-    <p-card header="People List">
+    <p-card>
         <p-table [lazy]="true" styleClass="p-datatable-sm" [value]="people.results">
+            <ng-template pTemplate="caption">
+                <div class="card flex flex-wrap justify-content-between align-items-center">
+                    <div class="p-card-title m-0">People List</div>
+                    <p-iconField iconPosition="right">
+                        <p-inputIcon styleClass="pi pi-search" />
+                        <input type="text" pInputText placeholder="Search" (input)="onSearchPeople($event)" class="w-12rem"/>
+                    </p-iconField>
+                </div>
+            </ng-template>
             <ng-template pTemplate="header">
                 <tr>
                     <th colspan="2">Name</th>
@@ -12,33 +21,33 @@
                     <td>{{ person.name }}</td>
                     <td>
                         <div class="flex column-gap-2 justify-content-end">
-                            <p-button [routerLink]="['/people', person.id]" icon="pi pi-external-link" text="true" size="small" 
-                            pTooltip="Open In New Page" 
-                            tooltipPosition="left" 
-                            showDelay="500" 
-                            hideDelay="100"/>
+                            <p-button [routerLink]="['/people', person.id]" icon="pi pi-external-link" text="true"
+                                size="small" pTooltip="Open In New Page" tooltipPosition="left" showDelay="500"
+                                hideDelay="100" />
                             <!-- Detail Btn -->
-                            <p-button (click)="viewDetailPerson(person.id)" label="Detail" icon="pi pi-angle-right" iconPos="right" size="small"/>
+                            <p-button (click)="viewDetailPerson(person.id)" label="Detail" icon="pi pi-angle-right"
+                                iconPos="right" size="small" />
                         </div>
                     </td>
                 </tr>
             </ng-template>
         </p-table>
         <ng-container *ngIf="isLoading;">
-            <div class="flex justify-content-center align-items-center"  style="min-height:400px">
-                <p-progressSpinner ariaLabel="loading"/>
+            <div class="flex justify-content-center align-items-center" style="min-height:400px">
+                <p-progressSpinner ariaLabel="loading" />
             </div>
         </ng-container>
         <ng-template pTemplate="footer">
             <div class="flex align-items-center justify-content-end">
                 <span class="mx-1 text-color">Items per page: </span>
-                <p-paginator [first]="0" [rows]="10" [totalRecords]="people.count" (onPageChange)="onPageChange($event)" [showCurrentPageReport]="true"
-                    currentPageReportTemplate="{first} - {last} of {totalRecords}" [showPageLinks]="false" [showFirstLastIcon]="false" ></p-paginator>
+                <p-paginator [first]="0" [rows]="10" [totalRecords]="people.count" (onPageChange)="onPageChange($event)"
+                    [showCurrentPageReport]="true" currentPageReportTemplate="{first} - {last} of {totalRecords}"
+                    [showPageLinks]="false" [showFirstLastIcon]="false"></p-paginator>
             </div>
         </ng-template>
     </p-card>
     <div #personDetailSection class="person-detail-section">
-        <app-person-detail [personID]="personDetailID"/>
+        <app-person-detail [personID]="personDetailID" />
     </div>
 </div>
 <!-- <ng-container *ngIf="isLoading; else dataLoaded">
