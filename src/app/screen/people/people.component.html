@@ -1,4 +1,4 @@
-<div class="flex gap-5 mt-5 flex-column md:flex-row">
+<div class="flex gap-5 mt-2 md:mt-5 flex-column md:flex-row">
     <p-card header="People List">
         <p-table [lazy]="true" styleClass="p-datatable-sm" [value]="people.results">
             <ng-template pTemplate="header">
@@ -38,7 +38,7 @@
         </ng-template>
     </p-card>
     <div #personDetailSection class="person-detail-section">
-        <app-person-detail [personID]="personDetailID" style="padding: 1.5rem;"/>
+        <app-person-detail [personID]="personDetailID"/>
     </div>
 </div>
 <!-- <ng-container *ngIf="isLoading; else dataLoaded">
