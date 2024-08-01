@@ -84,4 +84,8 @@ export class PersonDetailComponent {
       }
     )
   }
+
+  onChildClick(event : string) {
+    alert(event);
+  }
 }

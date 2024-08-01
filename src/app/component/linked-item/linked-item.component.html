@@ -8,7 +8,7 @@
         <span style="color: red;">{{ errorText || "No message" }}</span>
     </ng-container>
     <ng-container *ngIf="!isError">
-        <div class="linked-item-container">
+        <div class="linked-item-container" (click)="onLinkClick()">
             {{nameDisplay}}
         </div>
     </ng-container>

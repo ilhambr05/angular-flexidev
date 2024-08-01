@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonService } from '../../services/common.service';
 import { CommonModule } from '@angular/common';
 import { CardModule } from 'primeng/card';
@@ -14,6 +14,9 @@ import { SkeletonModule } from 'primeng/skeleton';
 export class LinkedItemComponent {
   @Input() link!: string;
   @Input() indexToGetName!: string;
+  
+  @Output() onParentClick = new EventEmitter<string>();
+
   isLoading: boolean = false;
   isError: boolean = false;
   errorText: string = "";
@@ -44,5 +47,9 @@ export class LinkedItemComponent {
         }
       }
     )
+  }
+
+  onLinkClick(){
+    this.onParentClick.emit("testing child click");
   }
 }

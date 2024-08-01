@@ -75,7 +75,7 @@
                 <ng-container *ngIf="person.films.length > 0">
                     <div class="flex flex-wrap gap-2">
                         <ng-template ngFor let-link [ngForOf]="person.films" let-i="index">
-                            <app-linked-item [link]="link" indexToGetName="title" />
+                            <app-linked-item [link]="link" indexToGetName="title" (onParentClick)="onChildClick($event)"/>
                         </ng-template>
                     </div>
                 </ng-container>
