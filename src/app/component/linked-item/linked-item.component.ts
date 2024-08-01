@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonService } from '../../services/common.service';
 import { CommonModule } from '@angular/common';
-import { CardModule } from 'primeng/card';
 import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({

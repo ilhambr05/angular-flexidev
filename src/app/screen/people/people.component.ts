@@ -15,12 +15,13 @@ import { InputIconModule } from 'primeng/inputicon';
 import { debounceTime, Subject } from 'rxjs';
 import { IServiceParams } from '../../model/service';
 import { InputTextModule } from 'primeng/inputtext';
+import { SideTableComponent } from "../../component/side-table/side-table.component";
 
 @Component({
   selector: 'app-people',
   standalone: true,
-  imports: [RouterModule, CommonModule, TableModule, CardModule, ProgressSpinnerModule, ButtonModule, 
-    PaginatorModule, TooltipModule, PersonDetailComponent, IconFieldModule, InputIconModule, InputTextModule],
+  imports: [RouterModule, CommonModule, TableModule, CardModule, ProgressSpinnerModule, ButtonModule,
+    PaginatorModule, TooltipModule, PersonDetailComponent, IconFieldModule, InputIconModule, InputTextModule, SideTableComponent],
   templateUrl: './people.component.html',
   styleUrl: './people.component.scss'
 })

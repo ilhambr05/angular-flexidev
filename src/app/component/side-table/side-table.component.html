@@ -1,0 +1,37 @@
+<p-table [lazy]="true" styleClass="p-datatable-sm" [value]="tableData">
+    <ng-template pTemplate="caption">
+        <div class="card flex flex-wrap justify-content-between align-items-center">
+            <div class="p-card-title m-0">{{title}}</div>
+            <p-iconField iconPosition="right">
+                <p-inputIcon styleClass="pi pi-search" />
+                <input type="text" pInputText placeholder="Search" (input)="onSearchData($event)" class="w-12rem"/>
+            </p-iconField>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th colspan="2">Name</th>
+            <!-- <th>Action</th> -->
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-data>
+        <tr>
+            <td>{{ data.name }}</td>
+            <td>
+                <div class="flex column-gap-2 justify-content-end">
+                    <p-button [routerLink]="['/people', data.id]" icon="pi pi-external-link" text="true"
+                        size="small" pTooltip="Open In New Page" tooltipPosition="left" showDelay="500"
+                        hideDelay="100" />
+                    <!-- Detail Btn -->
+                    <p-button (click)="onViewDetailData(data.id)" label="Detail" icon="pi pi-angle-right"
+                        iconPos="right" size="small" />
+                </div>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+<ng-container *ngIf="isLoading;">
+    <div class="flex justify-content-center align-items-center" style="min-height:400px">
+        <p-progressSpinner ariaLabel="loading" />
+    </div>
+</ng-container>
